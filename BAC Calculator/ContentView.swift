@@ -13,17 +13,23 @@ struct ContentView: View {
     let clock = ContinuousClock() //Clock for measuring the time between drinks
     let alcoholDensity: Float = 0.79 //Alcohol's density g/ml
     let metabolism: Float = 0.015 //Metabolism BAC/h of alcohol cancelled by the liver
-    let MALE: Int = 1
+    let MALE: Int = 1 //Readability variable e.g. sex == MALE
     
     @State public var before: ContinuousClock.Instant //Define the before time. Has to be defined in BAC_Calculator.app where ContentView is called, hence public
-    @State private var weight: String = "70,0" //User's weight
-    @State private var bac: Float = 0.0 //BAC initially 0
+    @State private var metabolismGrams: Float = 7.14 //Metabolism g/h of default 70kg male, is changed in code
+    @State private var gramsOfAlcohol: Float = 0.0
+    
+    //Textfield variables
     @State private var volume = "" //Volume text box is empty
     @State private var horsepower = "" //Horsepower text box is empty
+    
+    //User adjustable settings
+    @State private var sex: Int = 1
+    @State private var weight: String = "70,0" //User's weight
+    
+    //Show additional content on screen booleans
     @State private var showSettings: Bool = false
     @State private var showInfo: Bool = false
-    @State private var gender: Int = 1
-    @State private var timeUntilSober: Float = 0.0 //In Hours
     
     //Focus states for TextFields
     @FocusState private var volumeFocused:Bool //Whether or not user is actively writing in a box. Used to hide the keyboard
@@ -34,7 +40,9 @@ struct ContentView: View {
         
         VStack {
             
+            //HStack For top buttons
             HStack {
+                
                 //Info button
                 Button(action: {
                     showInfo.toggle()
@@ -46,6 +54,7 @@ struct ContentView: View {
                         .padding(.leading, 20)
                 }
                 
+                //Spacer to place them in each corner
                 Spacer()
                 
                 //Settings button
@@ -53,6 +62,7 @@ struct ContentView: View {
                     showSettings.toggle()
                     showInfo = false
                     hideKeyboard()
+                    updateMetabolismGrams()
                 }) {
                     Image(systemName: "gearshape")
                         .scaleEffect(CGSize(width: 1.5, height: 1.5))
@@ -65,9 +75,10 @@ struct ContentView: View {
             
             ZStack {
                 //Add Gauge and BAC
-                BACGauge(progress: bac/0.3)
+                BACGauge(progress: getBAC()/0.3)
                     .scaleEffect(CGSize(width: 0.7, height: 0.7))
                 
+                //Text/information VStack
                 VStack {
   
                     Text("Blood Alcohol")
@@ -77,7 +88,7 @@ struct ContentView: View {
                         .padding(.bottom, 10)
                         
 
-                    Text(String(format: "%.2f", bac*10)+"‰") //Multiply by 10 to show as promille
+                    Text(String(format: "%.2f", getBAC()*10)+"‰") //Multiply by 10 to show as promille
                         .font(.title2)
                     
                     Text(getTimeUntilSober())
@@ -98,11 +109,13 @@ struct ContentView: View {
                     
                 HStack {
                     
+                    //Icons
                     VStack {
                         Image(systemName: "waterbottle").padding(.bottom, 15)
                         Image(systemName: "percent")
                     }
                     
+                    //TextFields for volume and horse power
                     VStack {
                         TextField("Volume (ml)", text: $volume).keyboardType(.decimalPad).focused($volumeFocused)
                             .padding(.bottom, 5)
@@ -117,42 +130,8 @@ struct ContentView: View {
                 .animation(.easeIn(duration: 0.2), value: isBottomMenuVisible())
             
             //Update Button
-            Button(action:{
+            Button(action: {update()}) {
                 
-                //Check duration from last BAC check/drink
-                let duration = clock.now - before
-                let delay: Int64 = duration.components.seconds
-                before = clock.now
-                
-                //Convert text into float, default value 0 replace e.g. "0,5" to 0.5
-                let drinkVolume = Float(volume.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 0.0
-                let drinkHorsepower = (Float(horsepower.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 0.0)/100.0
-                let userWeight = Float(weight.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 1
-                let genderConstant = (gender == MALE ? Float(0.68) : Float(0.55)) //Gender constant 0.68 for males and 0.55 for females
-                
-                //Calculate BAC
-                let alcoholWeight = alcoholDensity * drinkVolume * drinkHorsepower
-                let humanWeight = 1000 * userWeight * genderConstant
-                let addedBAC = alcoholWeight/humanWeight * 100
-                let liver = metabolism * Float(delay)/3600
-                
-                if bac - liver <= 0 {
-                    bac = addedBAC
-                } else {
-                    bac = bac + addedBAC - liver
-                }
-                
-                timeUntilSober = bac / metabolism
-                
-                //Reset text boxes
-                volume = ""
-                horsepower = ""
-                
-                //Hide keyboard
-                hideKeyboard()
-                
-                
-            }) {
                 //Button style: rounded rectangle
                 ZStack {
                     
@@ -166,19 +145,24 @@ struct ContentView: View {
                             .foregroundColor(.white)
                     }
                 }.animation(.easeIn(duration: 0.2), value: isBottomMenuVisible())
-                
-                
             }
+            
+            
             
             Text(getSweetSpot())
                 .padding(.top, 20)
                 .foregroundColor(.gray)
             
+            
+            
             Spacer()
             
-                
+            
+            
+            //ZStack for bottom menu: settings or info
             ZStack {
                 
+                //Background
                 if isBottomMenuVisible() {
                     
                     RoundedRectangle(cornerSize: CGSize(width: 20, height: 20))
@@ -191,6 +175,7 @@ struct ContentView: View {
                     
                 }
                 
+                //If settings is shown, show settings on top of background
                 if showSettings {
                     
                     VStack {
@@ -210,9 +195,9 @@ struct ContentView: View {
                         
                         HStack {
                             
-                            Text("Gender:").padding(.leading, 50)
+                            Text("Sex:").padding(.leading, 50)
                             
-                            Picker(selection: $gender, label: Text("Gender")) {
+                            Picker(selection: $sex, label: Text("Sex")) {
                                 Text("Male").tag(1)
                                 Text("Female").tag(2)
                             }
@@ -222,7 +207,7 @@ struct ContentView: View {
                         }.padding(.bottom, 10)
                         
                         HStack {
-                            Text("Adjust settings before logging")
+                            Text("Adjusting settings will affect BAC")
                                 .foregroundColor(.gray)
                                 .padding(.leading, 50)
                             Spacer()
@@ -235,6 +220,7 @@ struct ContentView: View {
                                 
                                 hideKeyboard()
                                 showSettings = false
+                                updateMetabolismGrams()
                                 
                             }) {
                                 ZStack {
@@ -255,8 +241,8 @@ struct ContentView: View {
                                 
                                 hideKeyboard()
                                 showSettings = false
-                                bac = 0
-                                timeUntilSober = 0.0
+                                gramsOfAlcohol = 0
+                                updateMetabolismGrams()
                                 
                             }) {
                                 ZStack {
@@ -275,8 +261,10 @@ struct ContentView: View {
                         
                     }
                     
+                //If settings is shown, show settings on top of background
                 } else if showInfo {
                     
+                    //VStack for text
                     VStack {
                         
                         Text("Info").font(.title)
@@ -295,6 +283,7 @@ struct ContentView: View {
                             showInfo = false
                             
                         }) {
+                            //Button style
                             ZStack {
                                 
                                 RoundedRectangle(cornerSize: CGSize(width: 15, height: 15))
@@ -305,6 +294,7 @@ struct ContentView: View {
                                 Text("Close")
                                     .foregroundColor(.white)
                             }
+                            
                         }
                         
                     }
@@ -318,17 +308,19 @@ struct ContentView: View {
     
     func getSweetSpot() -> String {
         
-        if bac >= 0.1 {
+        //When typing in a certain horsepower, getSweetSpot will return the amount of ml required to reach 1.0 BAC
+        
+        if getBAC() >= 0.1 {
             return " "
         }
         
         let drinkHorsepower = (Float(horsepower.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 0.0)/100.0
         let userWeight = Float(weight.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil))
-        let genderConstant = (gender == MALE ? Float(0.68) : Float(0.55))
+        let sexConstant = (sex == MALE ? Float(0.68) : Float(0.55))
         
         if drinkHorsepower != 0.0 {
             
-            let top = ((0.1-bac) * 10 * (userWeight ?? 1.0) * genderConstant)
+            let top = ((0.1-getBAC()) * 10 * (userWeight ?? 1.0) * sexConstant)
             let bottom = (alcoholDensity * drinkHorsepower)
             let moreVolume = top/bottom
             
@@ -340,6 +332,9 @@ struct ContentView: View {
     }
     
     func hideKeyboard() -> Void {
+        
+        //Hides the keyboard
+        
         volumeFocused = false
         horsepowerFocused = false
         weightFocused = false
@@ -347,21 +342,25 @@ struct ContentView: View {
     
     func keyboardVisible() -> Bool {
         
-        if volumeFocused || horsepowerFocused || weightFocused {
-            return true
-        }
+        //Returns bool whether or not a keyboard is currently visible
         
-        return false
+        return volumeFocused || horsepowerFocused || weightFocused
         
     }
     
     func isBottomMenuVisible() -> Bool {
+        
+        //Returns bool whether or not settings or info is currently visible
         
         return showSettings || showInfo
         
     }
     
     func getTimeUntilSober() -> String {
+        
+        //Returns the time taken to get sober, given in hours or minutes
+        
+        let timeUntilSober = gramsOfAlcohol / metabolismGrams
         
         let totalMinutes = Int(String(format:"%.0f", timeUntilSober * 60)) ?? 0
         
@@ -385,10 +384,60 @@ struct ContentView: View {
         
     }
     
+    func getBAC() -> Float {
+        
+        //Calculates BAC using weight, sex, and grams of alcohol in the the body, as well as updates the value for metabolismGrams
+        
+        let userWeight = Float(weight.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 1
+        let sexConstant = (sex == MALE ? Float(0.68) : Float(0.55)) //Gender constant 0.68 for males and 0.55 for females
+        
+        let humanWeight = 1000 * userWeight * sexConstant
+        
+        let bac = gramsOfAlcohol/humanWeight * 100
+        
+        return bac
+        
+    }
+    
+    func update() -> Void {
+        
+        //Called from Update button. Performs the operations required to add a new drink and/or update the current grams of alcohol in blood
+        
+        //Check duration from last BAC check/drink
+        let duration = clock.now - before
+        let delay: Int64 = duration.components.seconds
+        before = clock.now
+        
+        //Convert text into float, default value 0 replace e.g. "0,5" to 0.5
+        let drinkVolume = Float(volume.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 0.0
+        let drinkHorsepower = (Float(horsepower.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 0.0)/100.0
+        
+        updateMetabolismGrams()
+        let liver = metabolismGrams * Float(delay)/3600
+        
+        
+        gramsOfAlcohol += alcoholDensity * drinkVolume * drinkHorsepower - liver
+        
+        //Reset text boxes
+        volume = ""
+        horsepower = ""
+        
+        //Hide keyboard
+        hideKeyboard()
+        
+    }
+    
+    func updateMetabolismGrams() -> Void {
+        let userWeight = Float(weight.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)) ?? 1
+        let sexConstant = (sex == MALE ? Float(0.68) : Float(0.55)) //Gender constant 0.68 for males and 0.55 for females
+        let humanWeight = 1000 * userWeight * sexConstant
+        metabolismGrams = metabolism/100 * humanWeight
+    }
+    
 }
 
 
-
+//The circular gauge for showing blood alcohol
 struct BACGauge: View {
     
     var progress: Float
@@ -423,7 +472,9 @@ struct BACGauge: View {
             .animation(.easeIn(duration: 0.5), value: self.progress)
     }
     
-    func speedColorGradient() -> Color{
+    func speedColorGradient() -> Color {
+        
+        //Calculate the color of the gauge
         
         if self.progress == 0 {
             return Color.gray
@@ -440,6 +491,8 @@ struct BACGauge: View {
         }
     }
 }
+
+//Preview for xcode
 
 #Preview {
     ContentView(before: ContinuousClock().now)
