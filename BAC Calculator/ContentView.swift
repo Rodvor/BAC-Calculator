@@ -13,7 +13,7 @@ struct ContentView: View {
     let clock = ContinuousClock() //Clock for measuring the time between drinks
     let alcoholDensity: Float = 0.79 //Alcohol's density g/ml
     let metabolism: Float = 0.015 //Metabolism BAC/h of alcohol cancelled by the liver
-    let MALE: Int = 1 //Readability variable e.g. sex == MALE
+    let MALE: Int = 1 //Readability variable e.g. if sex == MALE {}
     
     @State public var before: ContinuousClock.Instant //Define the before time. Has to be defined in BAC_Calculator.app where ContentView is called, hence public
     @State private var metabolismGrams: Float = 7.14 //Metabolism g/h of default 70kg male, is changed in code
@@ -417,6 +417,11 @@ struct ContentView: View {
         
         
         gramsOfAlcohol += alcoholDensity * drinkVolume * drinkHorsepower - liver
+        
+        if gramsOfAlcohol <= 0 {
+            gramsOfAlcohol = 0
+        }
+                
         
         //Reset text boxes
         volume = ""
