@@ -482,12 +482,12 @@ struct BACGauge: View {
         ZStack {
             
             Circle() //Background
-                .foregroundColor(isLight ? Color.white : Color.black)
-                .opacity(isLight ? 0.9 : 0.8)
+                .foregroundColor(Color.black)
+                .opacity(isLight ? 0 : 0.8)
                 .scaleEffect(1.10)
             
             Circle() // Entire background
-                .opacity(isLight ? 0.3 : 0.1)
+                .opacity(isLight ? 0.1 : 0.1)
                 .scaleEffect(1.10)
             
             Circle() //Gauge Background
