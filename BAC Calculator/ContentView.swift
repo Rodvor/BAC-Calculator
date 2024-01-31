@@ -249,7 +249,6 @@ struct ContentView: View {
                             Button(action: {
                                 
                                 hideKeyboard()
-                                showSettings = false
                                 gramsOfAlcohol = 0
                                 updateMetabolismGrams()
                                 
