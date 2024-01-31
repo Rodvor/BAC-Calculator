@@ -25,6 +25,7 @@ struct ContentView: View {
     
     //User adjustable settings
     @State private var sex: Int = 1
+    @State private var mode: Int = 1
     @State private var weight: String = "70,0" //User's weight
     
     //Show additional content on screen booleans
@@ -35,6 +36,8 @@ struct ContentView: View {
     @FocusState private var volumeFocused:Bool //Whether or not user is actively writing in a box. Used to hide the keyboard
     @FocusState private var horsepowerFocused:Bool
     @FocusState private var weightFocused: Bool
+    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         
@@ -75,7 +78,7 @@ struct ContentView: View {
             
             ZStack {
                 //Add Gauge and BAC
-                BACGauge(progress: getBAC()/0.3)
+                BACGauge(progress: getBAC()/0.3, isLight: isLight())
                     .scaleEffect(CGSize(width: 0.7, height: 0.7))
                 
                 //Text/information VStack
@@ -167,7 +170,7 @@ struct ContentView: View {
                     
                     RoundedRectangle(cornerSize: CGSize(width: 20, height: 20))
                         .foregroundColor(.gray)
-                        .opacity(0.25)
+                        .opacity(isLight() ? 0.15 : 0.25)
                         .frame(width: 380, height: 220, alignment: .center)
                         .onTapGesture {
                             hideKeyboard()
@@ -201,15 +204,21 @@ struct ContentView: View {
                                 Text("Male").tag(1)
                                 Text("Female").tag(2)
                             }
-                                .foregroundColor(.white)
                             
                             Spacer()
-                        }.padding(.bottom, 10)
+                            
+                        }
                         
                         HStack {
-                            Text("Adjusting settings will affect BAC")
-                                .foregroundColor(.gray)
-                                .padding(.leading, 50)
+                            
+                            Text("Appearance:").padding(.leading, 50)
+                            
+                            Picker(selection: $mode, label: Text("Sex")) {
+                                Text("Automatic").tag(1)
+                                Text("Light").tag(2)
+                                Text("Dark").tag(3)
+                            }
+                            
                             Spacer()
                         }.padding(.bottom, 20)
                         
@@ -250,7 +259,7 @@ struct ContentView: View {
                                     RoundedRectangle(cornerSize: CGSize(width: 15, height: 15))
                                         .frame(width: 85.0, height: 30.0, alignment: .center)
                                         .foregroundColor(.red)
-                                        .opacity(0.3)
+                                        .opacity(isLight() ? 0.5 : 0.3)
                                     
                                     Text("Reset")
                                         .foregroundColor(.red)
@@ -267,7 +276,7 @@ struct ContentView: View {
                     //VStack for text
                     VStack {
                         
-                        Text("Info").font(.title)
+                        Text("Info").font(.title2)
                         Text("Warning: This application is not necessarily accurate and should not be relied on for your own safety. This app uses general formulae from the internet")
                             .frame(width: 350, height: 45, alignment: .center)
                             .padding(.bottom, 2)
@@ -304,6 +313,16 @@ struct ContentView: View {
             }.animation(.easeIn(duration: 0.2), value: isBottomMenuVisible())
         
         }.padding(.bottom, 20)
+            .environment(\.colorScheme, isLight() ? .light : .dark)
+            .background(
+            
+                Rectangle()
+                    .frame(width: 800, height: 1600, alignment: .center)
+                    .foregroundColor(isLight() ? .white : .black)
+            
+            )
+            .animation(.easeInOut(duration: 0.2), value: isLight())
+            
     }
     
     func getSweetSpot() -> String {
@@ -439,6 +458,15 @@ struct ContentView: View {
         metabolismGrams = metabolism/100 * humanWeight
     }
     
+    
+    func isLight() -> Bool {
+        if mode == 1 {
+            return colorScheme == .light
+        }
+        
+        return mode == 2
+    }
+    
 }
 
 
@@ -446,19 +474,20 @@ struct ContentView: View {
 struct BACGauge: View {
     
     var progress: Float
+    var isLight: Bool
     let width: Double = 15.0
     
     var body: some View {
         
         ZStack {
             
-            Circle() // Black background
-                .foregroundColor(Color.black)
-                .opacity(0.8)
+            Circle() //Background
+                .foregroundColor(isLight ? Color.white : Color.black)
+                .opacity(isLight ? 0.9 : 0.8)
                 .scaleEffect(1.10)
             
             Circle() // Entire background
-                .opacity(0.10)
+                .opacity(isLight ? 0.3 : 0.1)
                 .scaleEffect(1.10)
             
             Circle() //Gauge Background
@@ -495,6 +524,7 @@ struct BACGauge: View {
             
         }
     }
+    
 }
 
 //Preview for xcode
