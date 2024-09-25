@@ -15,6 +15,8 @@ struct ContentView: View {
     let metabolism: Float = 0.015 //Metabolism BAC/h of alcohol cancelled by the liver
     let MALE: Int = 1 //Readability variable e.g. if sex == MALE {}
     
+    let BACController = HKController()
+    
     @State public var before: ContinuousClock.Instant //Define the before time. Has to be defined in BAC_Calculator.app where ContentView is called, hence public
     @State private var metabolismGrams: Float = 7.14 //Metabolism g/h of default 70kg male, is changed in code
     @State private var gramsOfAlcohol: Float = 0.0
@@ -447,6 +449,12 @@ struct ContentView: View {
         
         //Hide keyboard
         hideKeyboard()
+        
+        // Save to health app
+        BACController.getAuthorization()
+        let bacValue = getBAC()
+        let currentDate = Date()
+        BACController.saveBloodAlcoholContent(bacValue: Double(bacValue/100), date: currentDate)
         
     }
     

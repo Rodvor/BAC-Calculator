@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A672B0D2CA48CCA0089550D /* HKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A672B0C2CA48C9E0089550D /* HKController.swift */; };
 		9A709D4E2B6809110033BC04 /* BAC_CalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */; };
 		9A709D502B6809110033BC04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A709D4F2B6809110033BC04 /* ContentView.swift */; };
 		9A709D522B6809160033BC04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A709D512B6809160033BC04 /* Assets.xcassets */; };
@@ -14,6 +15,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A672B0C2CA48C9E0089550D /* HKController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKController.swift; sourceTree = "<group>"; };
+		9A672B0E2CA48EE80089550D /* BAC Calculator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BAC Calculator.entitlements"; sourceTree = "<group>"; };
 		9A709D4A2B6809110033BC04 /* BAC Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BAC Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BAC_CalculatorApp.swift; sourceTree = "<group>"; };
 		9A709D4F2B6809110033BC04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,8 +54,10 @@
 		9A709D4C2B6809110033BC04 /* BAC Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				9A672B0E2CA48EE80089550D /* BAC Calculator.entitlements */,
 				9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */,
 				9A709D4F2B6809110033BC04 /* ContentView.swift */,
+				9A672B0C2CA48C9E0089550D /* HKController.swift */,
 				9A709D512B6809160033BC04 /* Assets.xcassets */,
 				9A709D532B6809160033BC04 /* Preview Content */,
 			);
@@ -137,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A672B0D2CA48CCA0089550D /* HKController.swift in Sources */,
 				9A709D502B6809110033BC04 /* ContentView.swift in Sources */,
 				9A709D4E2B6809110033BC04 /* BAC_CalculatorApp.swift in Sources */,
 			);
@@ -269,12 +275,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BAC Calculator/BAC Calculator.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BAC Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Adding BAC to Health app";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Adding BAC to Health app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -301,12 +310,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "BAC Calculator/BAC Calculator.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BAC Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Adding BAC to Health app";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Adding BAC to Health app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
