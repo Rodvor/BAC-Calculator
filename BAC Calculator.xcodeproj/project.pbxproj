@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A3D7FEE2D8B1F9100B17838 /* BloodAlcohol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D7FED2D8B1F9100B17838 /* BloodAlcohol.swift */; };
+		9A3D7FF12D8B23C500B17838 /* BACGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D7FF02D8B23C500B17838 /* BACGauge.swift */; };
+		9A3D7FF32D8B23D100B17838 /* StomachGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D7FF22D8B23D100B17838 /* StomachGauge.swift */; };
+		9A3D7FF92D8B2F6E00B17838 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D7FF82D8B2F6700B17838 /* Utilities.swift */; };
 		9A672B0D2CA48CCA0089550D /* HKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A672B0C2CA48C9E0089550D /* HKController.swift */; };
 		9A709D4E2B6809110033BC04 /* BAC_CalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */; };
 		9A709D502B6809110033BC04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A709D4F2B6809110033BC04 /* ContentView.swift */; };
@@ -15,6 +19,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A3D7FED2D8B1F9100B17838 /* BloodAlcohol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodAlcohol.swift; sourceTree = "<group>"; };
+		9A3D7FF02D8B23C500B17838 /* BACGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BACGauge.swift; sourceTree = "<group>"; };
+		9A3D7FF22D8B23D100B17838 /* StomachGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StomachGauge.swift; sourceTree = "<group>"; };
+		9A3D7FF82D8B2F6700B17838 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		9A3D7FFC2D8BF5E700B17838 /* BAC-Calculator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BAC-Calculator-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9A672B0C2CA48C9E0089550D /* HKController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKController.swift; sourceTree = "<group>"; };
 		9A672B0E2CA48EE80089550D /* BAC Calculator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BAC Calculator.entitlements"; sourceTree = "<group>"; };
 		9A709D4A2B6809110033BC04 /* BAC Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BAC Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +44,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A3D7FEF2D8B23B200B17838 /* Gauges */ = {
+			isa = PBXGroup;
+			children = (
+				9A3D7FF02D8B23C500B17838 /* BACGauge.swift */,
+				9A3D7FF22D8B23D100B17838 /* StomachGauge.swift */,
+			);
+			path = Gauges;
+			sourceTree = "<group>";
+		};
+		9A3D7FF42D8B2F1E00B17838 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9A672B0C2CA48C9E0089550D /* HKController.swift */,
+				9A3D7FED2D8B1F9100B17838 /* BloodAlcohol.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9A3D7FF72D8B2F4400B17838 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9A3D7FF82D8B2F6700B17838 /* Utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		9A709D412B6809110033BC04 = {
 			isa = PBXGroup;
 			children = (
@@ -54,10 +89,13 @@
 		9A709D4C2B6809110033BC04 /* BAC Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				9A3D7FFC2D8BF5E700B17838 /* BAC-Calculator-Info.plist */,
 				9A672B0E2CA48EE80089550D /* BAC Calculator.entitlements */,
 				9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */,
 				9A709D4F2B6809110033BC04 /* ContentView.swift */,
-				9A672B0C2CA48C9E0089550D /* HKController.swift */,
+				9A3D7FEF2D8B23B200B17838 /* Gauges */,
+				9A3D7FF42D8B2F1E00B17838 /* Controllers */,
+				9A3D7FF72D8B2F4400B17838 /* Utilities */,
 				9A709D512B6809160033BC04 /* Assets.xcassets */,
 				9A709D532B6809160033BC04 /* Preview Content */,
 			);
@@ -144,7 +182,11 @@
 			files = (
 				9A672B0D2CA48CCA0089550D /* HKController.swift in Sources */,
 				9A709D502B6809110033BC04 /* ContentView.swift in Sources */,
+				9A3D7FF12D8B23C500B17838 /* BACGauge.swift in Sources */,
 				9A709D4E2B6809110033BC04 /* BAC_CalculatorApp.swift in Sources */,
+				9A3D7FEE2D8B1F9100B17838 /* BloodAlcohol.swift in Sources */,
+				9A3D7FF32D8B23D100B17838 /* StomachGauge.swift in Sources */,
+				9A3D7FF92D8B2F6E00B17838 /* Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +324,7 @@
 				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BAC-Calculator-Info.plist";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Adding BAC to Health app";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Adding BAC to Health app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -317,6 +360,7 @@
 				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "BAC-Calculator-Info.plist";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Adding BAC to Health app";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Adding BAC to Health app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
