@@ -291,6 +291,7 @@ struct ContentView: View {
                                 hideKeyboard()
                                 showSettings = false
                                 BloodAlcohol.setBody(newWeight: formatToFloat(weight), newIsMale: sex == MALE)
+                                setDefaults()
                                 
                             }) {
                                 ZStack {
@@ -309,25 +310,7 @@ struct ContentView: View {
                             
                             Button(action:{
                                 
-                                let hkController = HKController()
-
-                                hkController.getUserBodyMass { bodyMass in
-                                    if let bodyMass = bodyMass {
-                                        print("User body mass: \(bodyMass) kg")
-                                        weight = String(format: "%.2f", bodyMass)
-                                    } else {
-                                        print("Could not retrieve user body mass")
-                                    }
-                                }
-
-                                hkController.getUserBiologicalSex { biologicalSex in
-                                    if let biologicalSex = biologicalSex {
-                                        print("User biological sex: \(biologicalSex)")
-                                        sex = biologicalSex
-                                    } else {
-                                        print("Could not retrieve user biological sex")
-                                    }
-                                }
+                                retrieveBodydata()
                                 
                             }){
                                 ZStack {
@@ -466,7 +449,7 @@ struct ContentView: View {
     // Start the timer to update every 5 seconds
     func startTimer() {
         stopTimer() // Ensure no duplicate timers are running
-        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
             update()
         }
     }
@@ -480,23 +463,48 @@ struct ContentView: View {
     // Function to update BAC with time delay
     func update() {
         
+        setDefaults()
+        
+        // Get delay
+        let duration = clock.now - before
+        let delay: Int64 = duration.components.seconds
+        before = clock.now
+        
+        // Update blood alcohol
+        BloodAlcohol.updateData(Float(delay))
+    }
+    
+    func setDefaults() -> Void {
+        
         // Update defaults
         defaults.set(sex, forKey: "sex")
         defaults.set(weight, forKey: "weight")
         defaults.set(mode, forKey: "mode")
+    }
+    
+    func retrieveBodydata() -> Void {
         
-        if BloodAlcohol.alcohol == 0 {
-            return
+        // Retrieve user sex and weight from HealthKit
+        let hkController = HKController()
+
+        hkController.getUserBodyMass { bodyMass in
+            if let bodyMass = bodyMass {
+                print("User body mass: \(bodyMass) kg")
+                weight = String(format: "%.2f", bodyMass)
+            } else {
+                print("Could not retrieve user body mass")
+            }
+        }
+
+        hkController.getUserBiologicalSex { biologicalSex in
+            if let biologicalSex = biologicalSex {
+                print("User biological sex: \(biologicalSex)")
+                sex = biologicalSex
+            } else {
+                print("Could not retrieve user biological sex")
+            }
         }
         
-        if BloodAlcohol.stomachVolume == 0 {
-            return
-        }
-        
-        let duration = clock.now - before
-        let delay: Int64 = duration.components.seconds
-        before = clock.now
-        BloodAlcohol.updateData(Float(delay))
     }
     
 }
