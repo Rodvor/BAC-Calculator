@@ -22,13 +22,13 @@ struct ContentView: View {
     @State private var timer: Timer? // Timer variable
     
     //Textfield variables
-    @State private var volume = "" //Volume text box is empty
-    @State private var horsepower = "" //Horsepower text box is empty
+    @State private var volume = "" // Volume text box is empty
+    @State private var horsepower = "" // Horsepower text box is empty
     
     //User adjustable settings
-    @State var sex: Int
-    @State var mode: Int
-    @State var weight: String //User's weight
+    @State var sex: Int       // User's biological sex
+    @State var mode: Int      // App appearance
+    @State var weight: String // User's weight
     
     //Show additional content on screen booleans
     @State private var showSettings: Bool = false
@@ -449,7 +449,7 @@ struct ContentView: View {
     // Start the timer to update every 5 seconds
     func startTimer() {
         stopTimer() // Ensure no duplicate timers are running
-        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
             update()
         }
     }

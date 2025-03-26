@@ -16,7 +16,7 @@ class BloodAlcoholController: ObservableObject {
     var stomachConcentration: Float = 0.0  // % of alcohol in stomach (ml alco / total ml)
     
     var weight: Float = 70.0  // Human weight kg
-    var sexConstant: Float = 0.71    // Sex constant 0.71 L/kg for men and 0.58 L/kg for women
+    var sexConstant: Float = 0.71 * 0.9   // Sex constant 0.71 L/kg for men and 0.58 L/kg for women
     var metabolism: Float = 7.455    // Grams of alcohol per hour metabolised
     
     let alcoholDensity: Float = 0.789 // g/ml
@@ -96,7 +96,7 @@ class BloodAlcoholController: ObservableObject {
         let volumeDistribution: Float = sexConstant * weight
         let currentBac: Float = alcohol / volumeDistribution
         
-        // Return BAC in percent
+        // Return BAC in promille
         return currentBac
         
     }
@@ -198,9 +198,10 @@ class BloodAlcoholController: ObservableObject {
         
         // Save to health app
         BACController.getAuthorization()
-        let bacValue = getCurrentBAC()
+        let bacValue = getCurrentBAC()/1000 // Divide by 1000 cuz HealthKit converts decimal to percent
         let currentDate = Date()
-        BACController.saveBloodAlcoholContent(bacValue: Double(bacValue/100), date: currentDate)
+        print("Saving: \(Double(bacValue))")
+        BACController.saveBloodAlcoholContent(bacValue: Double(bacValue), date: currentDate)
         
     }
     
@@ -215,11 +216,15 @@ class BloodAlcoholController: ObservableObject {
     // Method for setting the sex of user,
     private func setSex(isMale: Bool) -> Void {
         
+        // We use a multiplier because these values are used when
+        // alcohol is assumed to be consumed immediately
+        let multiplier: Float = 0.9
+        
         // Adjust sexConstant
         if isMale {
-            sexConstant = 0.71
+            sexConstant = 0.71 * multiplier
         } else {
-            sexConstant = 0.58
+            sexConstant = 0.58 * multiplier
         }
 
         
