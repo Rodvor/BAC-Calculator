@@ -95,6 +95,7 @@ struct MainView: View {
             }
                 
             StomachGauge(volume: BloodAlcohol.stomachVolume, concentration: BloodAlcohol.stomachConcentration)
+                .frame(width: 300, height: 25, alignment: .center)
                 .padding(.bottom, 15)
             
             //Text input fields
@@ -110,14 +111,18 @@ struct MainView: View {
                     
                     //TextFields for volume and horse power
                     VStack {
-                        TextField("Volume (ml)", text: $volume).keyboardType(.decimalPad).focused($volumeFocused)
+                        TextField("Volume (ml)", text: $volume)
+                            .keyboardType(.decimalPad)
+                            .focused($volumeFocused)
                             .padding(.bottom, 5)
-                        TextField("Horsepower (%)", text: $horsepower).keyboardType(.decimalPad).focused($horsepowerFocused)
+                        TextField("Horsepower (%)", text: $horsepower)
+                            .keyboardType(.decimalPad)
+                            .focused($horsepowerFocused)
                     }
                     
                 }
                 
-            }.padding(.leading, 50)
+            }.frame(width: 300, height: 50, alignment: .center)
                 .padding(.bottom, 30)
             
             //Update Button
@@ -130,11 +135,16 @@ struct MainView: View {
                     .padding(.horizontal, 10)
                     .background(Color.blue)
                     .cornerRadius(20)
-            }.padding(.bottom, 10)
+            }.padding(.bottom, 25)
             
             
             
-        }.onAppear {
+            
+        }
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .onAppear {
             startTimer()
         }
         .onDisappear {
