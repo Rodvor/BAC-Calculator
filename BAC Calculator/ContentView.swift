@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftData
-import Foundation
 
 struct ContentView: View {
     
@@ -30,7 +29,7 @@ struct ContentView: View {
             HistoryView()
                 .modelContext(context)
                 .tabItem {
-                    Label("History", systemImage: "list.bullet")
+                    Label("History", systemImage: "pencil.and.list.clipboard")
             }
 
             SettingsView(BloodAlcohol: BloodAlcohol, sex: defaults.integer(forKey: "sex"), weight: defaults.string(forKey: "weight") ?? "10,0")

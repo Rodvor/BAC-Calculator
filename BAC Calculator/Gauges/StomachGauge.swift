@@ -27,7 +27,6 @@ struct StomachGauge: View {
         HStack {
             
             Image(systemName: "drop.halffull")
-                .frame()
             
             ZStack {
                 

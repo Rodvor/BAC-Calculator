@@ -17,13 +17,17 @@ struct HistoryView: View {
         NavigationStack {
             VStack {
                 
+                // Check history
                 if drinks.isEmpty {
-                    
+                    // No drinks logged
                     Text("No drinks logged yet.")
+                        .font(.title3)
+                        .bold(true)
                         .foregroundColor(.gray)
                     
                 } else {
                     
+                    // Show all logged drinks
                     List(drinks) { d in
                         VStack(alignment: .leading) {
                             
