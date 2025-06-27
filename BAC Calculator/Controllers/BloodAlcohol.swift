@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 class BloodAlcoholController: ObservableObject {
     
@@ -232,8 +233,7 @@ class BloodAlcoholController: ObservableObject {
     
     // Method for setting weight
     private func setWeight(_ newWeight: Float) -> Void {
-        weight = newWeight
-        
+        weight = newWeight  
     }
     
     // Method for adjusting metabolism,
@@ -246,5 +246,21 @@ class BloodAlcoholController: ObservableObject {
         metabolism = metabolismConstant * volumeDistribution
     }
     
+    
+}
+
+
+@Model
+class Drink {
+    
+    var volume: Float
+    var concentration: Float
+    var date: Date
+    
+    init(volume: Float, concentration: Float) {
+        self.volume = volume
+        self.concentration = concentration
+        self.date = Date()
+    }
     
 }

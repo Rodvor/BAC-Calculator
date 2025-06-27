@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct BAC_CalculatorApp: App {
@@ -16,7 +17,6 @@ struct BAC_CalculatorApp: App {
         let defaults: [String: Any] = [
             "weight": "70,0",
             "sex": 1,
-            "mode": 1
         ]
 
         UserDefaults.standard.register(defaults: defaults)
@@ -24,7 +24,7 @@ struct BAC_CalculatorApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(before: clock.now, sex: defaults.integer(forKey: "sex"), mode: defaults.integer(forKey: "mode"), weight: defaults.string(forKey: "weight") ?? "10,0")
-        }
+            ContentView()
+        }.modelContainer(for: Drink.self)
     }
 }

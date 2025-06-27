@@ -16,6 +16,9 @@
 		9A709D502B6809110033BC04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A709D4F2B6809110033BC04 /* ContentView.swift */; };
 		9A709D522B6809160033BC04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A709D512B6809160033BC04 /* Assets.xcassets */; };
 		9A709D552B6809160033BC04 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A709D542B6809160033BC04 /* Preview Assets.xcassets */; };
+		9AABFC032E0E97CD002BE0E0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AABFC022E0E97CD002BE0E0 /* MainView.swift */; };
+		9AABFC052E0E97E3002BE0E0 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AABFC042E0E97E3002BE0E0 /* HistoryView.swift */; };
+		9AABFC072E0E97EA002BE0E0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AABFC062E0E97EA002BE0E0 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,9 @@
 		9A709D4F2B6809110033BC04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9A709D512B6809160033BC04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A709D542B6809160033BC04 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9AABFC022E0E97CD002BE0E0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		9AABFC042E0E97E3002BE0E0 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		9AABFC062E0E97EA002BE0E0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 				9A672B0E2CA48EE80089550D /* BAC Calculator.entitlements */,
 				9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */,
 				9A709D4F2B6809110033BC04 /* ContentView.swift */,
+				9AABFC012E0E97C0002BE0E0 /* Views */,
 				9A3D7FEF2D8B23B200B17838 /* Gauges */,
 				9A3D7FF42D8B2F1E00B17838 /* Controllers */,
 				9A3D7FF72D8B2F4400B17838 /* Utilities */,
@@ -108,6 +115,16 @@
 				9A709D542B6809160033BC04 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9AABFC012E0E97C0002BE0E0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9AABFC022E0E97CD002BE0E0 /* MainView.swift */,
+				9AABFC042E0E97E3002BE0E0 /* HistoryView.swift */,
+				9AABFC062E0E97EA002BE0E0 /* SettingsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +155,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					9A709D492B6809110033BC04 = {
 						CreatedOnToolsVersion = 15.2;
@@ -181,11 +198,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A672B0D2CA48CCA0089550D /* HKController.swift in Sources */,
+				9AABFC032E0E97CD002BE0E0 /* MainView.swift in Sources */,
 				9A709D502B6809110033BC04 /* ContentView.swift in Sources */,
 				9A3D7FF12D8B23C500B17838 /* BACGauge.swift in Sources */,
 				9A709D4E2B6809110033BC04 /* BAC_CalculatorApp.swift in Sources */,
+				9AABFC072E0E97EA002BE0E0 /* SettingsView.swift in Sources */,
 				9A3D7FEE2D8B1F9100B17838 /* BloodAlcohol.swift in Sources */,
 				9A3D7FF32D8B23D100B17838 /* StomachGauge.swift in Sources */,
+				9AABFC052E0E97E3002BE0E0 /* HistoryView.swift in Sources */,
 				9A3D7FF92D8B2F6E00B17838 /* Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +248,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -291,6 +312,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -321,7 +343,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BAC Calculator/Preview Content\"";
-				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BAC-Calculator-Info.plist";
@@ -357,7 +378,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BAC Calculator/Preview Content\"";
-				DEVELOPMENT_TEAM = M5TA96Y754;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BAC-Calculator-Info.plist";

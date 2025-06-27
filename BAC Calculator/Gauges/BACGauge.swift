@@ -11,8 +11,9 @@ import Foundation
 //The circular gauge for showing blood alcohol
 struct BACGauge: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var progress: Float
-    var isLight: Bool
     let width: Double = 15.0
     
     var body: some View {
@@ -21,17 +22,17 @@ struct BACGauge: View {
             
             Circle() //Background
                 .foregroundColor(Color.black)
-                .opacity(isLight ? 0 : 0.8)
+                .opacity(colorScheme == .dark ? 0.8 : 0.05)
                 .scaleEffect(1.10)
             
             Circle() // Entire background
-                .opacity(isLight ? 0.1 : 0.1)
+                .opacity(0.1)
                 .scaleEffect(1.10)
             
             Circle() //Gauge Background
                 .trim(from: 0.0, to: 0.75)
                 .stroke(style: StrokeStyle(lineWidth:width, lineCap: .round, lineJoin: .round))
-                .opacity(0.20)
+                .opacity(colorScheme == .dark ? 0.20 : 0.5)
                 .rotationEffect(Angle(degrees: 135))
             
             Circle() //Gauge
