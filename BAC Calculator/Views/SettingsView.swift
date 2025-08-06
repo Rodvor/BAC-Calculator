@@ -59,12 +59,23 @@ struct SettingsView: View {
                 }
                 
                 Section() {
+                    Button(action: {
+                        updateSettings()
+                        weightFocused = false
+                    }) {
+                        Text("Save")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                }
+                
+                Section() {
                     Button(role: .destructive, action: reset) {
                         Text("Reset Alcohol Data")
                             .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
             }
+            
             .navigationTitle("Settings")
         }
     }
@@ -107,6 +118,7 @@ struct SettingsView: View {
             if let bodyMass = bodyMass {
                 print("User body mass: \(bodyMass) kg")
                 weight = String(format: "%.2f", bodyMass)
+                updateSettings()
             } else {
                 print("Could not retrieve user body mass")
             }
@@ -116,12 +128,11 @@ struct SettingsView: View {
             if let biologicalSex = biologicalSex {
                 print("User biological sex: \(biologicalSex)")
                 sex = biologicalSex
+                updateSettings()
             } else {
                 print("Could not retrieve user biological sex")
             }
         }
-        
-        updateSettings()
     }
     
     func hideKeyboard() -> Void {
