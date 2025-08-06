@@ -57,6 +57,7 @@ struct HistoryView: View {
                     }.listRowBackground(Color.clear)
                         .frame(width: 400, height: 150, alignment: .center)
                         .padding(.top, 50)
+                        .padding(.bottom, 50)
                 }
                 
                 if !todayDrinks.isEmpty {
@@ -75,11 +76,13 @@ struct HistoryView: View {
                     }
                 }
                 
-                ForEach(olderDrinksGrouped, id: \.day) { dayGroup in
-                    NavigationLink {
-                        DayDetailView(date: dayGroup.day, drinks: dayGroup.drinks)
-                    } label: {
-                        Text(dayGroup.day, style: .date)
+                Section {
+                    ForEach(olderDrinksGrouped, id: \.day) { dayGroup in
+                        NavigationLink {
+                            DayDetailView(date: dayGroup.day, drinks: dayGroup.drinks)
+                        } label: {
+                            Text(dayGroup.day, style: .date)
+                        }
                     }
                 }
             }
