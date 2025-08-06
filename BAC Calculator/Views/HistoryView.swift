@@ -37,8 +37,28 @@ struct HistoryView: View {
     }
     
     var body: some View {
+        
         NavigationStack {
+                
             List {
+                
+                if todayDrinks.isEmpty && yesterdayDrinks.isEmpty {
+                    VStack {
+                        
+                        Image(systemName: "wineglass")
+                            .font(.system(size: 96))
+                            .foregroundColor(.secondary)
+                            .padding(.bottom)
+                        
+                        Text(olderDrinksGrouped.isEmpty ? "No Drinks Logged" : "No Recent Drinks")
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 24))
+                        
+                    }.listRowBackground(Color.clear)
+                        .frame(width: 400, height: 150, alignment: .center)
+                        .padding(.top, 50)
+                }
+                
                 if !todayDrinks.isEmpty {
                     Section("Today") {
                         ForEach(todayDrinks) { d in

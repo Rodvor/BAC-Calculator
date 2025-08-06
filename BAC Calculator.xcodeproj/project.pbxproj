@@ -12,6 +12,7 @@
 		9A3D7FF32D8B23D100B17838 /* StomachGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D7FF22D8B23D100B17838 /* StomachGauge.swift */; };
 		9A3D7FF92D8B2F6E00B17838 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D7FF82D8B2F6700B17838 /* Utilities.swift */; };
 		9A672B0D2CA48CCA0089550D /* HKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A672B0C2CA48C9E0089550D /* HKController.swift */; };
+		9A6E64382E43737500561981 /* BAC-Calculator icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9A6E64372E43737500561981 /* BAC-Calculator icon.icon */; };
 		9A709D4E2B6809110033BC04 /* BAC_CalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */; };
 		9A709D502B6809110033BC04 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A709D4F2B6809110033BC04 /* ContentView.swift */; };
 		9A709D522B6809160033BC04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A709D512B6809160033BC04 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		9A3D7FFC2D8BF5E700B17838 /* BAC-Calculator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "BAC-Calculator-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9A672B0C2CA48C9E0089550D /* HKController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKController.swift; sourceTree = "<group>"; };
 		9A672B0E2CA48EE80089550D /* BAC Calculator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "BAC Calculator.entitlements"; sourceTree = "<group>"; };
+		9A6E64372E43737500561981 /* BAC-Calculator icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "BAC-Calculator icon.icon"; sourceTree = "<group>"; };
 		9A709D4A2B6809110033BC04 /* BAC Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BAC Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BAC_CalculatorApp.swift; sourceTree = "<group>"; };
 		9A709D4F2B6809110033BC04 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				9A3D7FFC2D8BF5E700B17838 /* BAC-Calculator-Info.plist */,
+				9A6E64372E43737500561981 /* BAC-Calculator icon.icon */,
 				9A672B0E2CA48EE80089550D /* BAC Calculator.entitlements */,
 				9A709D4D2B6809110033BC04 /* BAC_CalculatorApp.swift */,
 				9A709D4F2B6809110033BC04 /* ContentView.swift */,
@@ -185,6 +188,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A6E64382E43737500561981 /* BAC-Calculator icon.icon in Resources */,
 				9A709D552B6809160033BC04 /* Preview Assets.xcassets in Resources */,
 				9A709D522B6809160033BC04 /* Assets.xcassets in Resources */,
 			);
@@ -337,7 +341,7 @@
 		9A709D592B6809160033BC04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "BAC-Calculator icon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BAC Calculator/BAC Calculator.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -372,7 +376,7 @@
 		9A709D5A2B6809160033BC04 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "BAC-Calculator icon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "BAC Calculator/BAC Calculator.entitlements";
 				CODE_SIGN_STYLE = Automatic;
