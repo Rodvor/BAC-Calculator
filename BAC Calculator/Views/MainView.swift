@@ -127,14 +127,26 @@ struct MainView: View {
             
             //Update Button
             Button(action: update_press) {
-                Text("Update")
-                    .font(.title3)
-                    .bold(true)
-                    .foregroundColor(.white)
-                    .padding(5)
-                    .padding(.horizontal, 10)
-                    .background(Color.blue)
-                    .cornerRadius(20)
+                // Liquid glass button if available
+                if #available(iOS 26.0, *) {
+                    Text("Update")
+                        .font(.title3)
+                        .bold(true)
+                        .foregroundColor(.white)
+                        .padding(5)
+                        .padding(.horizontal, 10)
+                        .glassEffect(.regular.tint(.blue).interactive())
+                } else {
+                    // Liquid glass unavailable
+                    Text("Update")
+                        .font(.title3)
+                        .bold(true)
+                        .foregroundColor(.white)
+                        .padding(5)
+                        .padding(.horizontal, 10)
+                        .background(Color.blue)
+                        .cornerRadius(20)
+                }
             }.padding(.bottom, 25)
             
             
